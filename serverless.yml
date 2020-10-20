@@ -64,12 +64,21 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  hello:
-    handler: handler.hello
+  requestUnicorn:
+    handler: functions/request_unicorns.handler
+    # role: SlsRydesLambdaRole
     events:
-        - http:
-            path: /
-            method: get
+      - http:
+          path: ride
+          method: post
+          cors: true
+          authorizer:
+            name: UnicornsAuthorizer
+            type: COGNITO_USER_POOLS
+            arn:
+              Fn::GetAtt:
+                - UserPool
+                - Arn
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
@@ -146,6 +155,19 @@ resources:
         GenerateSecret: false
         UserPoolId:
           Ref: UserPool
+    DDBTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: wildrydes-${self:custom.team}
+        AttributeDefinitions:
+          - AttributeName: RideId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: RideId
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 5
+          WriteCapacityUnits: 5
 
   Outputs:
     UserPoolId:
