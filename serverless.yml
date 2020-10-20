@@ -25,8 +25,14 @@ provider:
   runtime: nodejs12.x
   stage: dev
   region: eu-west-2
+  iamRoleStatements:
+   - Effect: Allow
+     Action:
+       - dynamodb:PutItem
+     Resource:
+       'Fn::GetAtt': [DDBTable, Arn]
 # you can overwrite defaults here
- 
+
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
