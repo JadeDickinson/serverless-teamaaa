@@ -1,0 +1,19 @@
+{
+  "name": "serverless-teamaaa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sls": "serverless"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JadeDickinson/serverless-teamaaa.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JadeDickinson/serverless-teamaaa/issues"
+  },
+  "homepage": "https://github.com/JadeDickinson/serverless-teamaaa#readme"
+}
